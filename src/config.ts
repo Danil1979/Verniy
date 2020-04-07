@@ -18,7 +18,6 @@ export let config = {
         "skip",
         "restart",
         "volume",
-        "p",
         "vol",
         "pop",
         "destroy",
@@ -37,6 +36,8 @@ export let config = {
         "emoji",
         "help",
         "ask",
-        "cv"
+        "cv",
+        "talk",
+        "spam"
     ]
 }

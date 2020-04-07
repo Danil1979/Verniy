@@ -1,21 +1,21 @@
 import * as Discord from "discord.js";
 import {IBotCommand} from "../api";
 require('dotenv').config();
-export default class testCommand implements IBotCommand {
+export default class cv implements IBotCommand {
 
-    private readonly _command = "cv";
+    private readonly _commands = ["cv","coronavirus"];
 
     help(): string {
         return "testing";
     }  
     
     isThisCommand(command: string): boolean {
-       return command === this._command;
+       return this._commands.includes(command);
     }
 
     async runCommand(args: string[], msgObject: Discord.Message, client: Discord.Client): Promise<void> {
+      
         var unirest = require("unirest");
-    
         new Promise((resolve) =>{
             unirest.get("https://coronavirus-monitor.p.rapidapi.com/coronavirus/latest_stat_by_country.php")
         .headers({
@@ -24,11 +24,13 @@ export default class testCommand implements IBotCommand {
         })
         .query({
             "country": args[0]||"Malaysia"
-        }).end((res: any) => {
+        })
+        .end((res: any) => {
             if (res.error) throw new Error(res.error)   
             const object = JSON.parse(res.body)
             resolve(object.latest_stat_by_country[0])
-        })}).then((value)=>
+        })})
+        .then((value)=>
         this.embed(msgObject,value)
         )
 
