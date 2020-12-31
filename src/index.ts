@@ -19,7 +19,7 @@ client.on("ready", async()=>{
     //when bot is ready
 
     //bot activity
-    if(client.user.id =="634326983655948308"){
+    if(client.user.id =="232465833597730816"){
         client.user.setActivity("せリシア好き!", {type:"PLAYING" });
         setDate(client);
     }
