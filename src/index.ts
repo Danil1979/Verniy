@@ -15,13 +15,17 @@ let commands : IBotCommand[] = [];
 
 loadCommands(`${__dirname}/commands`);
 
-client.on("ready", async ()=>{
+client.on("ready", async()=>{
     //when bot is ready
 
     //bot activity
-    client.user.setActivity("Ring Toss!", {type:"PLAYING" });
-   await initialize();
-    // setDate(client);
+    if(client.user.id =="634326983655948308"){
+        client.user.setActivity("せリシア好き!", {type:"PLAYING" });
+        setDate(client);
+    }
+
+    await initialize();
+    
     setBirthday(client);
     
     console.log("Ready!!");
@@ -51,7 +55,7 @@ client.on("message",msg=>{
     //if messager = bot, ignore it
     if(msg.author.bot) {return;}
     //if its direct message then ignore
-    if(msg.channel.type=="dm"){return;}
+    if(msg.channel.type=="dm"&&msg.member.id=="222728476816310272"){return;}
     //if message did not start with ~
     if(!msg.content.startsWith(ConfigFile.config.prefix)) {return;}
     //Handle Command
@@ -87,7 +91,7 @@ async function handleCommand(msg:Discord.Message){
 //Exit if no commands
 if(!ConfigFile.config ||(ConfigFile.config.commands as string[]).length === 0 ){return; }
 
-//Loop through command list
+//Loop through command list 
 for (const commandName of ConfigFile.config.commands as string[]){
 
     const commandsClass = require(`${commandsPath}/${commandName}`).default;
